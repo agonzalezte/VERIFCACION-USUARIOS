@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Custom styles for additional enhancements */
+        
         .login-container {
-            background: linear-gradient(135deg, rgba(15, 146, 233, 0.9) 0%, rgba(92, 128, 134, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(2, 94, 155, 0.9) 0%, rgba(92, 128, 134, 0.95) 100%);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
         
@@ -18,7 +20,7 @@
         }
         
         .fsfb-blue {
-            background-color: #139af5;
+            background-color: #054a77;
         }
         
         .select-custom {
@@ -28,33 +30,40 @@
             background-position: right 0.75rem center;
             background-size: 16px 12px;
         }
-        
         /* Animation for login */
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .animate-fade-in {
             animation: fadeIn 0.5s ease-out forwards;
         }
-        
         /* Smooth transitions */
+        
         .transition-slow {
             transition: all 0.3s ease;
         }
     </style>
 </head>
+
 <body class="bg-gray-100 font-sans">
     <!-- Login Screen -->
     <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
         <div class="login-container rounded-xl p-8 md:p-10 text-white w-full max-w-md animate-fade-in">
             <div class="text-center mb-8">
                 <img src="https://unicentrobogota.com/wp-content/uploads/2023/03/fundacion.png" alt="Fundación Santa Fe de Bogotá" class="mx-auto h-16 mb-4">
-                <h1 class="text-2xl font-bold">Acceso Al Sistema AWS </h1>
+                <h1 class="text-2xl font-bold">Consulta registro pacientes APP </h1>
                 <p class="opacity-80 mt-2">Ingrese sus credenciales FSFB</p>
             </div>
-            
+
             <form id="login-form" class="space-y-6">
                 <div>
                     <label for="username" class="block text-sm font-medium mb-1">Usuario</label>
@@ -65,7 +74,7 @@
                         <input type="text" id="username" class="w-full pl-10 pr-4 py-2 rounded-lg text-gray-800 bg-white focus:ring-2 focus:ring-blue-300 focus:outline-none transition-slow" placeholder="Ingrese su usuario" required>
                     </div>
                 </div>
-                
+
                 <div>
                     <label for="password" class="block text-sm font-medium mb-1">Contraseña</label>
                     <div class="relative">
@@ -78,20 +87,20 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="pt-2">
-                    <button type="submit" class="w-full bg-white text-fsfb-blue py-3 px-4 rounded-lg font-semibold hover:bg-blue-50 transition-slow focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-fsfb-blue">
-                        Iniciar Sesión <i class="fas fa-sign-in-alt ml-2"></i>
+                    <button type="submit" class="">
+                        Ingresar <i class="fas fa-sign-in-alt ml-2"></i>
                     </button>
                 </div>
             </form>
-            
+
             <div class="text-center mt-6 text-sm opacity-80">
                 <a href="#" class="underline hover:no-underline">¿Olvidó su contraseña?</a>
             </div>
         </div>
     </div>
-    
+
     <!-- Main Dashboard (Hidden until login) -->
     <div id="dashboard" class="hidden min-h-screen">
         <!-- Header -->
@@ -101,7 +110,7 @@
                     <img src="https://unicentrobogota.com/wp-content/uploads/2023/03/fundacion.png" alt="FSFB Logo" class="h-10">
                     <h1 class="text-xl font-bold">Fundación Santa Fe de Bogotá</h1>
                 </div>
-                
+
                 <div class="flex items-center space-x-4">
                     <div class="hidden md:block text-sm">
                         <p class="font-medium">Bienvenido, <span id="logged-user">Usuario</span></p>
@@ -112,7 +121,7 @@
                 </div>
             </div>
         </header>
-        
+
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8">
             <div class="max-w-4xl mx-auto">
@@ -122,7 +131,7 @@
                             <i class="fas fa-search mr-3"></i> Búsqueda de Pacientes
                         </h2>
                     </div>
-                    
+
                     <div class="p-6">
                         <form id="search-form" class="space-y-6">
                             <!-- Document Type and Number -->
@@ -148,13 +157,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="md:col-span-2">
                                     <label for="doc-number" class="block text-sm font-medium text-gray-700 mb-1">Número de Documento</label>
                                     <input type="text" id="doc-number" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fsfb-blue focus:border-fsfb-blue" placeholder="Ingrese el número de documento">
                                 </div>
                             </div>
-                            
+
                             <!-- Search Button -->
                             <div class="pt-4">
                                 <button type="submit" class="w-full md:w-auto fsfb-blue text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-slow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center">
@@ -164,7 +173,7 @@
                         </form>
                     </div>
                 </div>
-                
+
                 <!-- Results Section -->
                 <div id="results-section" class="hidden">
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -176,7 +185,7 @@
                                 <span id="results-count">0</span> pacientes encontrados
                             </div>
                         </div>
-                        
+
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
@@ -193,7 +202,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                         <div class="bg-gray-50 px-6 py-4 flex items-center justify-between border-t border-gray-200">
                             <div class="text-sm text-gray-500">
                                 Mostrando <span id="showing-from">1</span> a <span id="showing-to">5</span> de <span id="showing-total">5</span> resultados
@@ -209,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- No Results Placeholder (hidden by default) -->
                 <div id="no-results" class="hidden bg-white rounded-xl shadow-lg overflow-hidden text-center p-8">
                     <i class="fas fa-user-injured text-5xl text-gray-300 mb-4"></i>
@@ -219,7 +228,7 @@
             </div>
         </main>
     </div>
-    
+
     <script>
         // Login functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -227,126 +236,120 @@
             const togglePassword = document.getElementById('toggle-password');
             const passwordInput = document.getElementById('password');
             const passwordIcon = document.getElementById('password-icon');
-            
+
             togglePassword.addEventListener('click', function() {
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
                 passwordIcon.classList.toggle('fa-eye');
                 passwordIcon.classList.toggle('fa-eye-slash');
             });
-            
+
             // Handle login
             const loginForm = document.getElementById('login-form');
             const loginScreen = document.getElementById('login-screen');
             const dashboard = document.getElementById('dashboard');
             const loggedUser = document.getElementById('logged-user');
-            
+
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const username = document.getElementById('username').value;
-                
+
                 // Simulate login process
                 loggedUser.textContent = username;
-                
+
                 // Hide login, show dashboard
                 loginScreen.classList.add('hidden');
                 dashboard.classList.remove('hidden');
-                
+
                 // Show welcome notification
                 showNotification(`Bienvenido, ${username}`, 'success');
             });
-            
+
             // Handle logout
             const logoutBtn = document.getElementById('logout-btn');
             logoutBtn.addEventListener('click', function() {
                 // Clear form
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
-                
+
                 // Hide dashboard, show login
                 dashboard.classList.add('hidden');
                 loginScreen.classList.remove('hidden');
-                
+
                 // Reset results
                 document.getElementById('results-section').classList.add('hidden');
                 document.getElementById('no-results').classList.add('hidden');
             });
-            
+
             // Handle search
             const searchForm = document.getElementById('search-form');
             const resultsSection = document.getElementById('results-section');
             const noResults = document.getElementById('no-results');
             const resultsBody = document.getElementById('results-body');
             const resultsCount = document.getElementById('results-count');
-            
+
             // Sample patient data
-            const samplePatients = [
-                {
-                    docType: 'CC',
-                    docNumber: '1010155001',
-                    fullName: 'Brandon Stiven Gonzalez Guerrero',
-                    birthDate: '15/04/1985',
-                    gender: 'Masculino'
-                },
-                {
-                    docType: 'RC',
-                    docNumber: '987654321',
-                    fullName: 'Juan Martínez López',
-                    birthDate: '22/10/1978',
-                    gender: 'Masculino'
-                },
-                {
-                    docType: 'TI',
-                    docNumber: '456789123',
-                    fullName: 'Carlos Andrés Ramírez',
-                    birthDate: '03/07/2005',
-                    gender: 'Masculino'
-                },
-                {
-                    docType: 'CE',
-                    docNumber: '789123456',
-                    fullName: 'Ana Lucia Fernández',
-                    birthDate: '30/12/1990',
-                    gender: 'Femenino'
-                },
-                {
-                    docType: 'PA',
-                    docNumber: 'ABC123456',
-                    fullName: 'Robert Johnson Smith',
-                    birthDate: '18/05/1982',
-                    gender: 'Masculino'
-                }
-            ];
-            
+            const samplePatients = [{
+                docType: 'CC',
+                docNumber: '1010155001',
+                fullName: 'Brandon Stiven Gonzalez Guerrero',
+                birthDate: '15/04/1985',
+                gender: 'Masculino'
+            }, {
+                docType: 'RC',
+                docNumber: '987654321',
+                fullName: 'Juan Martínez López',
+                birthDate: '22/10/1978',
+                gender: 'Masculino'
+            }, {
+                docType: 'TI',
+                docNumber: '456789123',
+                fullName: 'Carlos Andrés Ramírez',
+                birthDate: '03/07/2005',
+                gender: 'Masculino'
+            }, {
+                docType: 'CE',
+                docNumber: '789123456',
+                fullName: 'Ana Lucia Fernández',
+                birthDate: '30/12/1990',
+                gender: 'Femenino'
+            }, {
+                docType: 'PA',
+                docNumber: 'ABC123456',
+                fullName: 'Robert Johnson Smith',
+                birthDate: '18/05/1982',
+                gender: 'Masculino'
+            }];
+
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 // Get search criteria
                 const docType = document.getElementById('doc-type').value;
                 const docNumber = document.getElementById('doc-number').value;
                 const patientName = document.getElementById('patient-name').value.toLowerCase();
-                
+
                 // Simulate search with delay
                 showNotification('Buscando pacientes...', 'info');
-                
+
                 setTimeout(() => {
                     // Filter sample data based on search criteria
                     let filteredPatients = samplePatients;
-                    
+
                     if (docType) {
                         filteredPatients = filteredPatients.filter(p => p.docType === docType);
                     }
-                    
+
                     if (docNumber) {
                         filteredPatients = filteredPatients.filter(p => p.docNumber.includes(docNumber));
                     }
-                    
+
                     if (patientName) {
-                        filteredPatients = filteredPatients.filter(p => 
+                        filteredPatients = filteredPatients.filter(p =>
                             p.fullName.toLowerCase().includes(patientName)
                         );
                     }
-                    
+
                     // Display results
                     if (filteredPatients.length > 0) {
                         displayResults(filteredPatients);
@@ -356,25 +359,25 @@
                         resultsSection.classList.add('hidden');
                         noResults.classList.remove('hidden');
                     }
-                    
+
                     // Show result notification
-                    const notificationMsg = filteredPatients.length > 0 
-                        ? `Se encontraron ${filteredPatients.length} pacientes` 
-                        : 'No se encontraron pacientes con los criterios de búsqueda';
+                    const notificationMsg = filteredPatients.length > 0 ?
+                        `Se encontraron ${filteredPatients.length} pacientes` :
+                        'No se encontraron pacientes con los criterios de búsqueda';
                     showNotification(notificationMsg, filteredPatients.length > 0 ? 'success' : 'warning');
                 }, 800);
             });
-            
+
             function displayResults(patients) {
                 // Clear previous results
                 resultsBody.innerHTML = '';
                 resultsCount.textContent = patients.length;
-                
+
                 // Populate results
                 patients.forEach(patient => {
                     const row = document.createElement('tr');
                     row.className = 'hover:bg-gray-50';
-                    
+
                     row.innerHTML = `
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             ${formatDocument(patient.docType, patient.docNumber)}
@@ -397,21 +400,21 @@
                             </button>
                         </td>
                     `;
-                    
+
                     resultsBody.appendChild(row);
                 });
-                
+
                 // Update pagination info
                 document.getElementById('showing-from').textContent = '1';
                 document.getElementById('showing-to').textContent = patients.length;
                 document.getElementById('showing-total').textContent = patients.length;
-                
+
                 // Add event listeners to action buttons
                 document.querySelectorAll('.action-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const action = this.getAttribute('data-action');
                         const patientName = this.getAttribute('data-patient');
-                        
+
                         if (action === 'view') {
                             showNotification(`Viendo información de ${patientName}`, 'info');
                         } else if (action === 'history') {
@@ -420,7 +423,7 @@
                     });
                 });
             }
-            
+
             function formatDocument(type, number) {
                 const docTypes = {
                     'CC': 'C.C.',
@@ -430,11 +433,11 @@
                     'PA': 'P.A.',
                     // Add other document types as needed
                 };
-                
+
                 const prefix = docTypes[type] || type;
                 return `${prefix} ${number}`;
             }
-            
+
             // Notification function
             function showNotification(message, type) {
                 // Create notification element
@@ -447,14 +450,14 @@
                         <span>${message}</span>
                     </div>
                 `;
-                
+
                 document.body.appendChild(notification);
-                
+
                 // Show notification
                 setTimeout(() => {
                     notification.style.transform = 'translateX(0)';
                 }, 10);
-                
+
                 // Hide after 3 seconds
                 setTimeout(() => {
                     notification.style.transform = 'translateX(120%)';
@@ -463,7 +466,7 @@
                     }, 300);
                 }, 3000);
             }
-            
+
             function getNotificationColor(type) {
                 const colors = {
                     'success': 'bg-green-500',
@@ -473,7 +476,7 @@
                 };
                 return colors[type] || 'bg-gray-500';
             }
-            
+
             function getNotificationIcon(type) {
                 const icons = {
                     'success': 'fas fa-check-circle',
@@ -486,4 +489,5 @@
         });
     </script>
 </body>
+
 </html>
