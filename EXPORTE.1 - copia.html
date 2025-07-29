@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundación Santa Fe de Bogotá - Búsqueda de Pacientes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for additional enhancements */
+        .login-container {
+            background: linear-gradient(135deg, rgba(15, 146, 233, 0.9) 0%, rgba(92, 128, 134, 0.95) 100%);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(to bottom right, #ffffff, #f0f9ff);
+        }
+        
+        .fsfb-blue {
+            background-color: #139af5;
+        }
+        
+        .select-custom {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ6g66rx93COMTiCtrK2xtnwin5LrMHfat8w&s' width='16' height='16' fill='%23005792' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+        
+        /* Animation for login */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        /* Smooth transitions */
+        .transition-slow {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="login-container rounded-xl p-8 md:p-10 text-white w-full max-w-md animate-fade-in">
+            <div class="text-center mb-8">
+                <img src="https://unicentrobogota.com/wp-content/uploads/2023/03/fundacion.png" alt="Fundación Santa Fe de Bogotá" class="mx-auto h-16 mb-4">
+                <h1 class="text-2xl font-bold">Acceso Al Sistema AWS </h1>
+                <p class="opacity-80 mt-2">Ingrese sus credenciales FSFB</p>
+            </div>
+            
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium mb-1">Usuario</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-300"></i>
+                        </div>
+                        <input type="text" id="username" class="w-full pl-10 pr-4 py-2 rounded-lg text-gray-800 bg-white focus:ring-2 focus:ring-blue-300 focus:outline-none transition-slow" placeholder="Ingrese su usuario" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium mb-1">Contraseña</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-300"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-4 py-2 rounded-lg text-gray-800 bg-white focus:ring-2 focus:ring-blue-300 focus:outline-none transition-slow" placeholder="Ingrese su contraseña" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700" id="toggle-password">
+                            <i class="fas fa-eye" id="password-icon"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-white text-fsfb-blue py-3 px-4 rounded-lg font-semibold hover:bg-blue-50 transition-slow focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-fsfb-blue">
+                        Iniciar Sesión <i class="fas fa-sign-in-alt ml-2"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-6 text-sm opacity-80">
+                <a href="#" class="underline hover:no-underline">¿Olvidó su contraseña?</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Dashboard (Hidden until login) -->
+    <div id="dashboard" class="hidden min-h-screen">
+        <!-- Header -->
+        <header class="fsfb-blue text-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="https://unicentrobogota.com/wp-content/uploads/2023/03/fundacion.png" alt="FSFB Logo" class="h-10">
+                    <h1 class="text-xl font-bold">Fundación Santa Fe de Bogotá</h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block text-sm">
+                        <p class="font-medium">Bienvenido, <span id="logged-user">Usuario</span></p>
+                    </div>
+                    <button id="logout-btn" class="bg-white text-fsfb-blue px-3 py-1 rounded-md text-sm font-medium hover:bg-blue-50 transition-slow flex items-center">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Salir
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="card-gradient rounded-xl shadow-lg overflow-hidden mb-8">
+                    <div class="fsfb-blue text-white px-6 py-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-search mr-3"></i> Búsqueda de Pacientes
+                        </h2>
+                    </div>
+                    
+                    <div class="p-6">
+                        <form id="search-form" class="space-y-6">
+                            <!-- Document Type and Number -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="md:col-span-1">
+                                    <label for="doc-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento</label>
+                                    <div class="relative">
+                                        <select id="doc-type" class="select-custom w-full pl-3 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fsfb-blue focus:border-fsfb-blue text-gray-700 bg-white">
+                                            <option value="" disabled selected>Seleccione una opción</option>
+                                            <option value="CC">Cédula de Ciudadanía (C.C)</option>
+                                            <option value="RC">Registro Civil (R.C)</option>
+                                            <option value="TI">Tarjeta de Identidad (T.I)</option>
+                                            <option value="CE">Cédula de Extranjería (C.E)</option>
+                                            <option value="NI">NIT (N.I)</option>
+                                            <option value="MS">Menor Sin Identificación (M.S)</option>
+                                            <option value="PA">Pasaporte (P.A)</option>
+                                            <option value="AS">Adulto Sin Identificación (A.S)</option>
+                                            <option value="NU">Número Único (N.U)</option>
+                                            <option value="CD">Carnet Diplomático (C.D)</option>
+                                            <option value="SC">Salvoconducto (S.C)</option>
+                                            <option value="PE">Permiso Especial (P.E)</option>
+                                            <option value="DE">Documento Extranjero (D.E)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="md:col-span-2">
+                                    <label for="doc-number" class="block text-sm font-medium text-gray-700 mb-1">Número de Documento</label>
+                                    <input type="text" id="doc-number" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fsfb-blue focus:border-fsfb-blue" placeholder="Ingrese el número de documento">
+                                </div>
+                            </div>
+                            
+                            <!-- Search Button -->
+                            <div class="pt-4">
+                                <button type="submit" class="w-full md:w-auto fsfb-blue text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-slow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center">
+                                    <i class="fas fa-search mr-2"></i> Buscar Paciente
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Results Section -->
+                <div id="results-section" class="hidden">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <div class="fsfb-blue text-white px-6 py-4 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold flex items-center">
+                                <i class="fas fa-users mr-2"></i> Resultados de Búsqueda
+                            </h3>
+                            <div class="text-sm">
+                                <span id="results-count">0</span> pacientes encontrados
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documento</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha Nacimiento</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Género</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-body" class="bg-white divide-y divide-gray-200">
+                                    <!-- Results will be populated here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="bg-gray-50 px-6 py-4 flex items-center justify-between border-t border-gray-200">
+                            <div class="text-sm text-gray-500">
+                                Mostrando <span id="showing-from">1</span> a <span id="showing-to">5</span> de <span id="showing-total">5</span> resultados
+                            </div>
+                            <div class="flex space-x-1">
+                                <button class="px-3 py-1 rounded-md bg-gray-200 text-gray-700 disabled:opacity-50" disabled id="prev-page">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition-slow" id="next-page">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- No Results Placeholder (hidden by default) -->
+                <div id="no-results" class="hidden bg-white rounded-xl shadow-lg overflow-hidden text-center p-8">
+                    <i class="fas fa-user-injured text-5xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-medium text-gray-700 mb-2">No se encontraron pacientes</h3>
+                    <p class="text-gray-500">Realice una nueva búsqueda con diferentes criterios</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Login functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                passwordIcon.classList.toggle('fa-eye');
+                passwordIcon.classList.toggle('fa-eye-slash');
+            });
+            
+            // Handle login
+            const loginForm = document.getElementById('login-form');
+            const loginScreen = document.getElementById('login-screen');
+            const dashboard = document.getElementById('dashboard');
+            const loggedUser = document.getElementById('logged-user');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                
+                // Simulate login process
+                loggedUser.textContent = username;
+                
+                // Hide login, show dashboard
+                loginScreen.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                
+                // Show welcome notification
+                showNotification(`Bienvenido, ${username}`, 'success');
+            });
+            
+            // Handle logout
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn.addEventListener('click', function() {
+                // Clear form
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                
+                // Hide dashboard, show login
+                dashboard.classList.add('hidden');
+                loginScreen.classList.remove('hidden');
+                
+                // Reset results
+                document.getElementById('results-section').classList.add('hidden');
+                document.getElementById('no-results').classList.add('hidden');
+            });
+            
+            // Handle search
+            const searchForm = document.getElementById('search-form');
+            const resultsSection = document.getElementById('results-section');
+            const noResults = document.getElementById('no-results');
+            const resultsBody = document.getElementById('results-body');
+            const resultsCount = document.getElementById('results-count');
+            
+            // Sample patient data
+            const samplePatients = [
+                {
+                    docType: 'CC',
+                    docNumber: '1010155001',
+                    fullName: 'Brandon Stiven Gonzalez Guerrero',
+                    birthDate: '15/04/1985',
+                    gender: 'Masculino'
+                },
+                {
+                    docType: 'RC',
+                    docNumber: '987654321',
+                    fullName: 'Juan Martínez López',
+                    birthDate: '22/10/1978',
+                    gender: 'Masculino'
+                },
+                {
+                    docType: 'TI',
+                    docNumber: '456789123',
+                    fullName: 'Carlos Andrés Ramírez',
+                    birthDate: '03/07/2005',
+                    gender: 'Masculino'
+                },
+                {
+                    docType: 'CE',
+                    docNumber: '789123456',
+                    fullName: 'Ana Lucia Fernández',
+                    birthDate: '30/12/1990',
+                    gender: 'Femenino'
+                },
+                {
+                    docType: 'PA',
+                    docNumber: 'ABC123456',
+                    fullName: 'Robert Johnson Smith',
+                    birthDate: '18/05/1982',
+                    gender: 'Masculino'
+                }
+            ];
+            
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get search criteria
+                const docType = document.getElementById('doc-type').value;
+                const docNumber = document.getElementById('doc-number').value;
+                const patientName = document.getElementById('patient-name').value.toLowerCase();
+                
+                // Simulate search with delay
+                showNotification('Buscando pacientes...', 'info');
+                
+                setTimeout(() => {
+                    // Filter sample data based on search criteria
+                    let filteredPatients = samplePatients;
+                    
+                    if (docType) {
+                        filteredPatients = filteredPatients.filter(p => p.docType === docType);
+                    }
+                    
+                    if (docNumber) {
+                        filteredPatients = filteredPatients.filter(p => p.docNumber.includes(docNumber));
+                    }
+                    
+                    if (patientName) {
+                        filteredPatients = filteredPatients.filter(p => 
+                            p.fullName.toLowerCase().includes(patientName)
+                        );
+                    }
+                    
+                    // Display results
+                    if (filteredPatients.length > 0) {
+                        displayResults(filteredPatients);
+                        resultsSection.classList.remove('hidden');
+                        noResults.classList.add('hidden');
+                    } else {
+                        resultsSection.classList.add('hidden');
+                        noResults.classList.remove('hidden');
+                    }
+                    
+                    // Show result notification
+                    const notificationMsg = filteredPatients.length > 0 
+                        ? `Se encontraron ${filteredPatients.length} pacientes` 
+                        : 'No se encontraron pacientes con los criterios de búsqueda';
+                    showNotification(notificationMsg, filteredPatients.length > 0 ? 'success' : 'warning');
+                }, 800);
+            });
+            
+            function displayResults(patients) {
+                // Clear previous results
+                resultsBody.innerHTML = '';
+                resultsCount.textContent = patients.length;
+                
+                // Populate results
+                patients.forEach(patient => {
+                    const row = document.createElement('tr');
+                    row.className = 'hover:bg-gray-50';
+                    
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${formatDocument(patient.docType, patient.docNumber)}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            ${patient.fullName}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${patient.birthDate}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${patient.gender}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button class="text-fsfb-blue hover:text-blue-700 mr-3 action-btn" data-action="view" data-patient="${patient.fullName}">
+                                <i class="fas fa-eye mr-1"></i> Ver
+                            </button>
+                            <button class="text-green-600 hover:text-green-800 action-btn" data-action="history" data-patient="${patient.fullName}">
+                                <i class="fas fa-history mr-1"></i> Historial
+                            </button>
+                        </td>
+                    `;
+                    
+                    resultsBody.appendChild(row);
+                });
+                
+                // Update pagination info
+                document.getElementById('showing-from').textContent = '1';
+                document.getElementById('showing-to').textContent = patients.length;
+                document.getElementById('showing-total').textContent = patients.length;
+                
+                // Add event listeners to action buttons
+                document.querySelectorAll('.action-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const action = this.getAttribute('data-action');
+                        const patientName = this.getAttribute('data-patient');
+                        
+                        if (action === 'view') {
+                            showNotification(`Viendo información de ${patientName}`, 'info');
+                        } else if (action === 'history') {
+                            showNotification(`Mostrando historial de ${patientName}`, 'info');
+                        }
+                    });
+                });
+            }
+            
+            function formatDocument(type, number) {
+                const docTypes = {
+                    'CC': 'C.C.',
+                    'RC': 'R.C.',
+                    'TI': 'T.I.',
+                    'CE': 'C.E.',
+                    'PA': 'P.A.',
+                    // Add other document types as needed
+                };
+                
+                const prefix = docTypes[type] || type;
+                return `${prefix} ${number}`;
+            }
+            
+            // Notification function
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-md shadow-lg text-white font-medium max-w-sm transform transition-all duration-300 ${getNotificationColor(type)}`;
+                notification.style.transform = 'translateX(120%)';
+                notification.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="${getNotificationIcon(type)} mr-3"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Show notification
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 10);
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(120%)';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+            
+            function getNotificationColor(type) {
+                const colors = {
+                    'success': 'bg-green-500',
+                    'error': 'bg-red-500',
+                    'warning': 'bg-yellow-500',
+                    'info': 'bg-blue-500'
+                };
+                return colors[type] || 'bg-gray-500';
+            }
+            
+            function getNotificationIcon(type) {
+                const icons = {
+                    'success': 'fas fa-check-circle',
+                    'error': 'fas fa-times-circle',
+                    'warning': 'fas fa-exclamation-circle',
+                    'info': 'fas fa-info-circle'
+                };
+                return icons[type] || 'fas fa-bell';
+            }
+        });
+    </script>
+</body>
+</html>
