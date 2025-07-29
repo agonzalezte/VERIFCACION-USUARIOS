@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificacion De Usuarios App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .select-custom {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+        }
+        .pulse-animation:hover {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .result-card {
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+    <div class="container mx-auto px-4 py-10 max-w-5xl">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificacion De Usuarios App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom styles -->
+    <style>
+        .select-custom {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+        }
+        .pulse-animation:hover {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .result-card {
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+    <div class="container mx-auto px-4 py-10 max-w-5xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                <span class="text-blue-600"></span> Sistema de Verificación de Usuarios
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">Verifique el estado de los usuarios registrados en el sistema</p>
+        </header>
+
+            
+            <form id="search-form" class="space-y-6">
+                <!-- Document Type and Number -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-1">
+                        <label for="doc-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento</label>
+                        <div class="relative">
+                            <select id="doc-type" class="select-custom w-full pl-3 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 bg-white transition-all">
+                                <option value="" disabled selected>Seleccione una opción</option>
+                                <option value="CC">Cédula de Ciudadanía (C.C)</option>
+                                <option value="RC">Registro Civil (R.C)</option>
+                                <option value="TI">Tarjeta de Identidad (T.I)</option>
+                                <option value="CE">Cédula de Extranjería (C.E)</option>
+                                <option value="NI">NIT (N.I)</option>
+                                <option value="MS">Menor Sin Identificación (M.S)</option>
+                                <option value="PA">Pasaporte (P.A)</option>
+                                <option value="AS">Adulto Sin Identificación (A.S)</option>
+                                <option value="NU">Número Único (N.U)</option>
+                                <option value="CD">Carnet Diplomático (C.D)</option>
+                                <option value="SC">Salvoconducto (S.C)</option>
+                                <option value="PE">Permiso Especial (P.E)</option>
+                                <option value="DE">Documento Extranjero (D.E)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="doc-number" class="block text-sm font-medium text-gray-700 mb-1">Número de Documento</label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="doc-number" 
+                                class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                placeholder="Ingrese el número de documento"
+                            >
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button 
+                        type="submit" 
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 pulse-animation"
+                    >
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                    <button 
+                        type="button" 
+                        id="advancedSearchBtn" 
+                        class="flex-1 bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 border border-gray-300 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                    >
+                        <i class="fas fa-sliders-h"></i> Búsqueda Avanzada
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Advanced Search (Hidden by default) -->
+        <section id="advancedSearchSection" class="bg-white rounded-xl shadow-lg p-6 mb-6 hidden transition-all duration-300">
+            <div class="mb-4">
+                <h2 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                    <i class="fas fa-search-plus text-blue-500"></i> Búsqueda Avanzada
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">Filtre los resultados con criterios adicionales</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Name -->
+                <div>
+                    <label for="search-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                    <input 
+                        type="text" 
+                        id="search-name" 
+                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        placeholder="Nombre completo"
+                    >
+                </div>
+                
+                <!-- Email -->
+                <div>
+                    <label for="search-email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                    <input 
+                        type="text" 
+                        id="search-email" 
+                        class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        placeholder="ejemplo@dominio.com"
+                    >
+                </div>
+                
+                <!-- Status -->
+                <div>
+                    <label for="search-status" class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+                    <select id="search-status" class="select-custom w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 bg-white">
+                        <option value="" selected>Todos los estados</option>
+                        <option value="active">Activo</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="suspended">Suspendido</option>
+                    </select>
+                </div>
+                
+                <!-- Date Range -->
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Rango de fechas</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="relative">
+                            <input 
+                                type="date" 
+                                id="search-date-from" 
+                                class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                placeholder="Desde"
+                            >
+                        </div>
+                        <div class="relative">
+                            <input 
+                                type="date" 
+                                id="search-date-to" 
+                                class="w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                placeholder="Hasta"
+                            >
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Role -->
+                <div>
+                    <label for="search-role" class="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+                    <select id="search-role" class="select-custom w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 bg-white">
+                        <option value="" selected>Todos los roles</option>
+                        <option value="admin">Administrador</option>
+                        <option value="user">Usuario regular</option>
+                        <option value="moderator">Moderador</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+                <button 
+                    type="button" 
+                    id="resetAdvancedBtn" 
+                    class="px-4 py-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg transition-all"
+                >
+                    <i class="fas fa-undo-alt mr-2"></i> Limpiar
+                </button>
+                <button 
+                    type="button" 
+                    id="applyAdvancedBtn" 
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all"
+                >
+                    <i class="fas fa-check mr-2"></i> Aplicar filtros
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Resultados de Búsqueda</h2>
+                <span id="resultCount" class="text-sm text-gray-500">Mostrando 0 resultados</span>
+            </div>
+            
+            <div id="resultsContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                <!-- Results will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Empty State -->
+        <section id="emptyState" class="text-center py-12">
+            <div class="max-w-sm mx-auto">
+                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-blue-500 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No se ha realizado ninguna búsqueda</h3>
+                <p class="text-gray-500">Complete los campos de búsqueda para verificar usuarios</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const searchForm = document.getElementById('search-form');
+            const docType = document.getElementById('doc-type');
+            const docNumber = document.getElementById('doc-number');
+            const advancedSearchBtn = document.getElementById('advancedSearchBtn');
+            const advancedSearchSection = document.getElementById('advancedSearchSection');
+            const resetAdvancedBtn = document.getElementById('resetAdvancedBtn');
+            const applyAdvancedBtn = document.getElementById('applyAdvancedBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const emptyState = document.getElementById('emptyState');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const resultCount = document.getElementById('resultCount');
+
+            // Advanced search fields
+            const searchName = document.getElementById('search-name');
+            const searchEmail = document.getElementById('search-email');
+            const searchStatus = document.getElementById('search-status');
+            const searchDateFrom = document.getElementById('search-date-from');
+            const searchDateTo = document.getElementById('search-date-to');
+            const searchRole = document.getElementById('search-role');
+
+            // Sample user data
+            const sampleUsers = [
+                {
+                    id: '1010155001',
+                    docType: 'CC',
+                    docNumber: '1010155001',
+                    name: 'Brandon Gonzalez',
+                    email: 'brandon.gonzalez@fsfb.org.co',
+                    status: 'active',
+                    role: 'Usuario Verificado',
+                    joinDate: '2024-06-10',
+                    lastActive: '2025-06-09'
+                },
+                {
+                    id: '2020255002',
+                    docType: 'CE',
+                    docNumber: '2020255002',
+                    name: 'María Fernanda Gómez',
+                    email: 'maria.gomez@example.com',
+                    status: 'active',
+                    role: 'Administrador',
+                    joinDate: '2021-11-28',
+                    lastActive: '2023-11-12'
+                },
+                {
+                    id: '3030355003',
+                    docType: 'TI',
+                    docNumber: '3030355003',
+                    name: 'Carlos Andrés López',
+                    email: 'carlos.lopez@example.com',
+                    status: 'pending',
+                    role: 'Usuario Regular',
+                    joinDate: '2023-10-05',
+                    lastActive: '2023-10-10'
+                },
+                {
+                    id: '1010155001',
+                    docType: 'PA',
+                    docNumber: '1010155001',
+                    name: 'Brandon Gonzalez ',
+                    email: 'brandon.gonzalez@fsfb.org.co',
+                    status: 'suspended',
+                    role: 'NO VERIFICADO',
+                    joinDate: '2022-07-14',
+                    lastActive: '2025-06-09'
+                },
+                {
+                    id: '5050555005',
+                    docType: 'CC',
+                    docNumber: '5050555005',
+                    name: 'Luis Miguel Castro',
+                    email: 'luis.castro@example.net',
+                    status: 'active',
+                    role: 'Usuario Regular',
+                    joinDate: '2023-01-30',
+                    lastActive: '2023-11-15'
+                }
+            ];
+
+            // Toggle advanced search
+            advancedSearchBtn.addEventListener('click', function() {
+                advancedSearchSection.classList.toggle('hidden');
+                const isVisible = !advancedSearchSection.classList.contains('hidden');
+                advancedSearchBtn.innerHTML = isVisible 
+                    ? '<i class="fas fa-sliders-h"></i> Ocultar búsqueda avanzada' 
+                    : '<i class="fas fa-sliders-h"></i> Búsqueda avanzada';
+            });
+
+            // Reset advanced search
+            resetAdvancedBtn.addEventListener('click', function() {
+                searchName.value = '';
+                searchEmail.value = '';
+                searchStatus.value = '';
+                searchDateFrom.value = '';
+                searchDateTo.value = '';
+                searchRole.value = '';
+            });
+
+            // Perform search
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const selectedDocType = docType.value;
+                const enteredDocNumber = docNumber.value.trim();
+                
+                if (!selectedDocType || !enteredDocNumber) {
+                    showEmptyState("Por favor seleccione tipo y número de documento");
+                    return;
+                }
+                
+                // Simulate loading
+                simulateSearch(selectedDocType, enteredDocNumber);
+            });
+
+            function simulateSearch(docType, docNumber) {
+                // Show loading state
+                resultsContainer.innerHTML = `
+                    <div class="flex justify-center py-8">
+                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                `;
+                
+                resultsSection.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                
+                // Simulate API delay
+                setTimeout(() => {
+                    performSearch(docType, docNumber);
+                }, 1000);
+            }
+
+            function performSearch(docType, docNumber) {
+                const filteredUsers = sampleUsers.filter(user => 
+                    user.docType === docType && 
+                    user.docNumber === docNumber
+                );
+                
+                displayResults(filteredUsers);
+            }
+
+            function displayResults(users) {
+                if (users.length === 0) {
+                    showEmptyState("No se encontraron usuarios con los criterios de búsqueda");
+                    return;
+                }
+                
+                resultCount.textContent = `Mostrando ${users.length} ${users.length === 1 ? 'resultado' : 'resultados'}`;
+                
+                resultsContainer.innerHTML = '';
+                
+                users.forEach(user => {
+                    const statusColors = {
+                        active: 'bg-green-100 text-green-800',
+                        pending: 'bg-yellow-100 text-yellow-800',
+                        suspended: 'bg-red-100 text-red-800'
+                    };
+                    
+                    const statusColor = statusColors[user.status] || 'bg-gray-100 text-gray-800';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'result-card bg-white rounded-lg shadow p-5 hover:border-l-4 hover:border-blue-500';
+                    card.innerHTML = `
+                        <div class="flex flex-col md:flex-row md:items-center gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <i class="fas fa-user text-blue-500"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800">${user.name}</h3>
+                                        <p class="text-sm text-gray-600">${user.email}</p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium ${statusColor}">
+                                            ${user.status === 'active' ? 'Activo' : 
+                                              user.status === 'pending' ? 'Pendiente' : 
+                                              'Suspendido'}
+                                        </span>
+                                        <span class="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            ${user.role}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4">
+                                    <div class="flex items-center gap-1 text-sm text-gray-500">
+                                        <i class="fas fa-id-card text-gray-400"></i>
+                                        <span>${getDocTypeName(user.docType)}: ${user.docNumber}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-sm text-gray-500">
+                                        <i class="fas fa-calendar-plus text-gray-400"></i>
+                                        <span>Registro: ${formatDate(user.joinDate)}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-sm text-gray-500">
+                                        <i class="fas fa-clock text-gray-400"></i>
+                                        <span>Última actividad: ${formatDate(user.lastActive)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-4 gap-2">
+                            <button class="user-details-btn px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors" data-id="${user.id}">
+                                <i class="fas fa-user-circle mr-1"></i> Ver Detalles
+                            </button>
+                            <button class="user-download-btn px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-md hover:bg-gray-200 transition-colors" data-id="${user.id}">
+                                <i class="fas fa-download mr-1"></i> Exportar
+                            </button>
+                        </div>
+                    `;
+                    
+                    resultsContainer.appendChild(card);
+                });
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.user-details-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-id');
+                        const user = sampleUsers.find(u => u.id === userId);
+                        if (user) {
+                            alert(`Detalles del usuario:\n\nNombre: ${user.name}\nDocumento: ${getDocTypeName(user.docType)} ${user.docNumber}\nEmail: ${user.email}\nEstado: ${user.status === 'active' ? 'Activo' : 'Pendiente'}\nRol: ${user.role}`);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.user-download-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        alert('Este botón exportaría la información del usuario en formato seleccionable (PDF, CSV, etc.)');
+                    });
+                });
+            }
+
+            function showEmptyState(message) {
+                emptyState.innerHTML = `
+                    <div class="max-w-sm mx-auto">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-search text-blue-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">${message}</h3>
+                        <p class="text-gray-500">Intente con otros criterios de búsqueda o ajuste los filtros</p>
+                    </div>
+                `;
+                
+                resultsSection.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            }
+
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('es-ES', options);
+            }
+
+            function getDocTypeName(docType) {
+                const types = {
+                    'CC': 'C.C',
+                    'RC': 'R.C',
+                    'TI': 'T.I',
+                    'CE': 'C.E',
+                    'NI': 'NIT',
+                    'MS': 'M.S',
+                    'PA': 'Pasaporte',
+                    'AS': 'A.S',
+                    'NU': 'N.U',
+                    'CD': 'C.D',
+                    'SC': 'S.C',
+                    'PE': 'P.E',
+                    'DE': 'D.E'
+                };
+                return types[docType] || docType;
+            }
+
+            // Apply advanced filters button
+            applyAdvancedBtn.addEventListener('click', function() {
+                const selectedDocType = docType.value;
+                const enteredDocNumber = docNumber.value.trim();
+                
+                if (!selectedDocType || !enteredDocNumber) {
+                    showEmptyState("Por favor complete tipo y número de documento");
+                    return;
+                }
+                
+                // Simulate loading
+                simulateAdvancedSearch(selectedDocType, enteredDocNumber);
+            });
+
+            function simulateAdvancedSearch(docType, docNumber) {
+                // Show loading state
+                resultsContainer.innerHTML = `
+                    <div class="flex justify-center py-8">
+                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                `;
+                
+                resultsSection.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                
+                // Simulate API delay
+                setTimeout(() => {
+                    performAdvancedSearch(docType, docNumber);
+                }, 1200);
+            }
+
+            function performAdvancedSearch(docType, docNumber) {
+                let filteredUsers = sampleUsers.filter(user => 
+                    user.docType === docType && 
+                    user.docNumber === docNumber
+                );
+                
+                // Apply advanced filters
+                const nameQuery = searchName.value.trim().toLowerCase();
+                const emailQuery = searchEmail.value.trim().toLowerCase();
+                const statusQuery = searchStatus.value;
+                const dateFromQuery = searchDateFrom.value;
+                const dateToQuery = searchDateTo.value;
+                const roleQuery = searchRole.value;
+                
+                if (nameQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        user.name.toLowerCase().includes(nameQuery)
+                    );
+                }
+                
+                if (emailQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        user.email.toLowerCase().includes(emailQuery)
+                    );
+                }
+                
+                if (statusQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        user.status === statusQuery
+                    );
+                }
+                
+                if (dateFromQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        new Date(user.joinDate) >= new Date(dateFromQuery)
+                    );
+                }
+                
+                if (dateToQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        new Date(user.joinDate) <= new Date(dateToQuery)
+                    );
+                }
+                
+                if (roleQuery) {
+                    filteredUsers = filteredUsers.filter(user => 
+                        user.role.toLowerCase().includes(roleQuery.toLowerCase())
+                    );
+                }
+                
+                displayResults(filteredUsers);
+            }
+        });
+    </script>
+</body>
+</html>
